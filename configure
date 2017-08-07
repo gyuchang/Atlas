@@ -16534,7 +16534,7 @@ $as_echo "no" >&6; }
 
    { $as_echo "$as_me:$LINENO: result: ... checked for Lua via pkg-config: $LUA_PKG_ERRORS. retrying with lua5.1" >&5
 $as_echo "... checked for Lua via pkg-config: $LUA_PKG_ERRORS. retrying with lua5.1" >&6; }
-   if test x"$LUA_PKG_ERROR" != "x"; then
+   if test x"$LUA_PKG_ERRORS" != "x"; then
 
 pkg_failed=no
 { $as_echo "$as_me:$LINENO: checking for LUA" >&5
