@@ -2019,8 +2019,8 @@ NETWORK_MYSQLD_PLUGIN_PROTO(proxy_connect_server) {
 	network_mysqld_auth_challenge *challenge = network_mysqld_auth_challenge_new();
 
 	challenge->protocol_version = 0;
-	challenge->server_version_str = g_strdup("5.0.81-log");
-	challenge->server_version = 50081;
+	challenge->server_version_str = g_strdup("5.7.19-log");
+	challenge->server_version = 50719;
 	static guint32 thread_id = 0;
 	challenge->thread_id = ++thread_id;
 

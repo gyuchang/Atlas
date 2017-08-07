@@ -1144,7 +1144,7 @@ network_mysqld_auth_challenge *network_mysqld_auth_challenge_new() {
 	shake->challenge = g_string_sized_new(20);
 	shake->capabilities = 
 		CLIENT_PROTOCOL_41 |
-		CLIENT_SECURE_CONNECTION |
+		CLIENT_RESERVED2 |
 		0;
 
 
@@ -1218,7 +1218,7 @@ int network_mysqld_proto_get_auth_challenge(network_packet *packet, network_mysq
 	
 	err = err || network_mysqld_proto_skip(packet, 13);
 	
-	if (shake->capabilities & CLIENT_SECURE_CONNECTION) {
+	if (shake->capabilities & CLIENT_RESERVED2) {
 		err = err || network_mysqld_proto_get_string_len(packet, &scramble_2, 12);
 		err = err || network_mysqld_proto_skip(packet, 1);
 	}
@@ -1320,7 +1320,7 @@ network_mysqld_auth_response *network_mysqld_auth_response_new() {
 	auth->response = g_string_new("");
 	auth->username = g_string_new("");
 	auth->database = g_string_new("");
-	auth->capabilities = CLIENT_SECURE_CONNECTION | CLIENT_PROTOCOL_41;
+	auth->capabilities = CLIENT_RESERVED2 | CLIENT_PROTOCOL_41;
 
 	return auth;
 }
@@ -1375,7 +1375,7 @@ int network_mysqld_proto_get_auth_response(network_packet *packet, network_mysql
 		err = err || network_mysqld_proto_skip(packet, 23);
 	
 		err = err || network_mysqld_proto_get_gstring(packet, auth->username);
-		if (auth->capabilities & CLIENT_SECURE_CONNECTION) {
+		if (auth->capabilities & CLIENT_RESERVED2) {
 			err = err || network_mysqld_proto_get_lenenc_gstring(packet, auth->response);
 		} else {
 			err = err || network_mysqld_proto_get_gstring(packet, auth->response);
